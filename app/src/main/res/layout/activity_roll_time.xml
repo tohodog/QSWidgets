@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:gravity="center"
+    tools:context=".ui.RollTimeActivity">
+
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="wrap_content" />
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text=":"
+        android:textColor="#fff"
+        android:textSize="40dp" />
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="wrap_content" />
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview4"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text=":"
+        android:textColor="#fff"
+        android:textSize="40dp" />
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview5"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="wrap_content" />
+
+    <org.song.qswidgets.widget.roll.RollView
+        android:id="@+id/rollview6"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</LinearLayout>

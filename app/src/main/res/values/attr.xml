@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--ToggleButton-->
+    <declare-styleable name="DottdeLineView">
+        <attr name="dashGap" format="dimension" />
+        <attr name="dashWidth" format="dimension" />
+        <attr name="lineColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="TagFlowLayout">
+        <attr name="auto_select_effect" format="boolean"></attr>
+        <attr name="max_select" format="integer"></attr>
+        <attr name="gravity">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="GifView">
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
+        <attr name="scaleType">
+            <enum name="matrix" value="0" />
+            <enum name="fitXY" value="1" />
+            <enum name="fitStart" value="2" />
+            <enum name="fitCenter" value="3" />
+            <enum name="fitEnd" value="4" />
+            <enum name="center" value="5" />
+            <enum name="centerCrop" value="6" />
+            <enum name="centerInside" value="7" />
+
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="InputFrameView">
+        <attr name="codeTextColor" format="color|reference" />
+        <attr name="codeTextSize" format="reference|dimension" />
+        <attr name="frameSize" format="reference|dimension" />
+        <attr name="frameGap" format="reference|dimension" />
+        <attr name="codeLength" format="integer|reference" />
+        <attr name="frameDrawable" format="reference" />
+
+    </declare-styleable>
+
+    <!--<declare-styleable name="CustomTheme">-->
+    <!--<attr name="gifViewStyle" format="reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--<style name="Widget.GifView" parent="@android:style/Widget"/>-->
+
+</resources>

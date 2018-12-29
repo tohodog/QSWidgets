@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 框框背景-->
+    <!--已输入文本-->
+    <item android:state_checked="true">
+        <shape>
+            <!--corners圆角 solid填充 stroke边缘 gradien颜色渐变-->
+            <corners android:radius="6dp" />
+            <stroke android:width="1dp" android:color="#b4b4b4" />
+            <gradient android:angle="135" android:endColor="#ffffff" android:startColor="#e0e0e0" />
+        </shape>
+    </item>
+
+    <!--当前光标-->
+    <item android:state_selected="true">
+        <shape>
+            <corners android:radius="6dp" />
+            <stroke android:width="2dp" android:color="#ff6666" />
+        </shape>
+    </item>
+
+    <!--其他/未输入-->
+    <item>
+        <shape>
+            <corners android:radius="6dp" />
+            <stroke android:width="1dp" android:color="#b4b4b4" />
+
+        </shape>
+    </item>
+</selector>
