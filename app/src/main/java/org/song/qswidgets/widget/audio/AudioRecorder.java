@@ -4,12 +4,11 @@ import android.media.MediaRecorder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * 录音管理类
  */
-public class AudioManager {
+public class AudioRecorder {
 
     private MediaRecorder mRecorder;
     private String mDirString;//存放录音文件夹地址  文件名字随机生成
@@ -17,20 +16,20 @@ public class AudioManager {
 
     private boolean isPrepared;// 是否准备好了
 
-    private static AudioManager mInstance;
+    private static AudioRecorder mInstance;
 
-    private AudioManager() {
+    private AudioRecorder() {
     }
 
     private void setmDirString(String mDirString) {
         this.mDirString = mDirString;
     }
 
-    public static AudioManager getInstance(String dir) {
+    public static AudioRecorder getInstance(String dir) {
         if (mInstance == null) {
-            synchronized (AudioManager.class) {
+            synchronized (AudioRecorder.class) {
                 if (mInstance == null) {
-                    mInstance = new AudioManager();
+                    mInstance = new AudioRecorder();
                 }
             }
         }

@@ -18,9 +18,11 @@ import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -31,7 +33,6 @@ import android.widget.FrameLayout;
 
 import org.song.qswidgets.R;
 
-import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -49,6 +50,8 @@ public class InputFrameView extends FrameLayout {
     private static final int DEFAULT_FRAME_SIZE = 50;
     private static final int DEFAULT_FRAME_PADDING = 14;
     private static final int DEFAULT_CODE_LENGTH = 4;
+    private static final int DEFAULT_INPUT_TYPE = InputType.TYPE_CLASS_NUMBER;
+
     /**
      * 输入View
      */
@@ -63,6 +66,7 @@ public class InputFrameView extends FrameLayout {
     private int mFrameGap = -1;
     private int mCodeTextColor = -1;
     private int mCodeTextSize = -1;
+    private int mInputType = -1;
 
     private @DrawableRes
     int mFrameDrawable = -1;
@@ -93,7 +97,7 @@ public class InputFrameView extends FrameLayout {
                 case R.styleable.InputFrameView_codeTextSize:
                     mCodeTextSize = typedArray.getDimensionPixelSize(attr, -1);
                     break;
-                case R.styleable.InputFrameView_frameSize:
+                case R.styleable.InputFrameView_frameWidth:
                     mFrameSize = typedArray.getDimensionPixelSize(attr, -1);
                     break;
                 case R.styleable.InputFrameView_frameGap:
@@ -104,6 +108,9 @@ public class InputFrameView extends FrameLayout {
                     break;
                 case R.styleable.InputFrameView_frameDrawable:
                     mFrameDrawable = typedArray.getResourceId(attr, -1);
+                    break;
+                case R.styleable.InputFrameView_inputType:
+                    mInputType = typedArray.getInt(attr, -1);
                     break;
             }
         }
@@ -119,6 +126,9 @@ public class InputFrameView extends FrameLayout {
         }
         if (mFrameGap == -1) {
             mFrameGap = (int) (density * DEFAULT_FRAME_PADDING);
+        }
+        if (mInputType == -1) {
+            mInputType = DEFAULT_INPUT_TYPE;
         }
         if (mCodeLength <= 0) {
             mCodeLength = DEFAULT_CODE_LENGTH;
@@ -145,8 +155,24 @@ public class InputFrameView extends FrameLayout {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mEditText.setShowSoftInputOnFocus(true);
         }
-        mEditText.setInputType(TYPE_CLASS_NUMBER);
         mEditText.setSingleLine();
+
+        if (mInputType > 0) {
+            mEditText.setInputType(mInputType);
+        } else {
+            mEditText.setKeyListener(new DigitsKeyListener() {
+                @Override
+                public int getInputType() {
+                    return InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                }
+
+                @NonNull
+                @Override
+                protected char[] getAcceptedChars() {
+                    return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+                }
+            });
+        }
         addView(mEditText, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
     }
 

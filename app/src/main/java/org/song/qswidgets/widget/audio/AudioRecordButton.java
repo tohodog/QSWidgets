@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 
 /**
@@ -26,7 +25,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
     //private final int MAX_LEN = 1000*60;//最大录音长度ms
 
     private boolean isRecording = false;// 已经开始录音
-    private AudioManager mAudioManager;
+    private AudioRecorder mAudioRecorder;
     private long recTime;//標記時間
     private int level;//音量
     private ExRecorderListener exRecorderListener;//
@@ -39,7 +38,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
 
     public AudioRecordButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mAudioManager = AudioManager.getInstance(context.getExternalCacheDir().getPath());
+        mAudioRecorder = AudioRecorder.getInstance(context.getExternalCacheDir().getPath());
         audioDialog = new AudioDialog(context);
         reset();
     }
@@ -80,7 +79,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
     private void recordStart() {
         try {
             changeUI(STATE_START);
-            mAudioManager.recordStart();
+            mAudioRecorder.recordStart();
             recTime = System.currentTimeMillis();
             if (recorderListener != null)
                 recorderListener.recordStart();
@@ -99,7 +98,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
         long len = System.currentTimeMillis() - recTime;
         if (len < MIN_LEN) {
             //Toast.makeText(getContext(), "录音时间过短!", Toast.LENGTH_LONG);
-            mAudioManager.recordCancel();
+            mAudioRecorder.recordCancel();
             changeUI(STATE_TOO_SHORT);
             if (recorderListener != null)
                 recorderListener.recordCancel();
@@ -110,12 +109,12 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
                 }
             }, 500);
         } else if (nowState == STATE_RECORDING) { // 正在录音的时候，结束
-            String path = mAudioManager.recordStop();
+            String path = mAudioRecorder.recordStop();
             if (recorderListener != null)
                 recorderListener.recordOK(len, path);
             reset();
         } else if (nowState == STATE_WANT_TO_CANCEL) { // 想要取消
-            mAudioManager.recordCancel();
+            mAudioRecorder.recordCancel();
             if (recorderListener != null)
                 recorderListener.recordCancel();
             reset();
@@ -165,7 +164,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
         @Override
         public void run() {
             if (isRecording) {
-                level = mAudioManager.getVoiceLevel(7);
+                level = mAudioRecorder.getVoiceLevel(7);
                 changeDialogListener.voiceLevel(level);
                 handler.postDelayed(run, 100);
             }

@@ -42,6 +42,8 @@ public class MainActivity extends BaseActivity {
         info.add(new ClassModel("语音录制", AudioActivity.class));
         info.add(new ClassModel("滚动时间", RollTimeActivity.class));
         info.add(new ClassModel("密码/验证码输入框", InputFrameActivity.class));
+        info.add(new ClassModel("风格TextView", DiyTextActivity.class));
+
 
     }
 

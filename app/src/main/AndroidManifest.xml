@@ -26,6 +26,7 @@
         <activity android:name=".ui.AudioActivity"></activity>
         <activity android:name=".ui.RollTimeActivity" />
         <activity android:name=".ui.InputFrameActivity" />
+        <activity android:name=".ui.DiyTextActivity" />
     </application>
 
 </manifest>

@@ -23,8 +23,8 @@ public class PixelUtil {
      * @return the int
      */
     public static int dp2px(float value) {
-        final float scale = mContext.getResources().getDisplayMetrics().densityDpi;
-        return (int) (value * (scale / 160) + 0.5f);
+        final float density = mContext.getResources().getDisplayMetrics().density;
+        return (int) (value * density + 0.5f);
     }
 
     /**

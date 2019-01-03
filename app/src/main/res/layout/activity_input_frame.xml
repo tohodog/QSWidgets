@@ -17,8 +17,9 @@
         app:codeTextColor="#ff6666"
         app:codeTextSize="30dp"
         app:frameGap="14dp"
-        app:frameSize="50dp"
+        app:frameWidth="50dp"
         app:codeLength="4"
+        app:inputType="number"
 
         />
 </FrameLayout>
