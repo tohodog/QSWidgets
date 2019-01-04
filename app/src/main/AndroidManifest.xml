@@ -28,6 +28,7 @@
         <activity android:name=".ui.InputFrameActivity" />
         <activity android:name=".ui.DiyTextActivity" />
         <activity android:name=".ui.DragImageCodeActivity" />
+        <activity android:name=".ui.VerticalScrollActivity" />
     </application>
 
 </manifest>
