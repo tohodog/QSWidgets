@@ -27,6 +27,7 @@
         <activity android:name=".ui.RollTimeActivity" />
         <activity android:name=".ui.InputFrameActivity" />
         <activity android:name=".ui.DiyTextActivity" />
+        <activity android:name=".ui.DragImageCodeActivity" />
     </application>
 
 </manifest>

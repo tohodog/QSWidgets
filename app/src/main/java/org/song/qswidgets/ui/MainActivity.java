@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.GridLayoutManager;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
         info.add(new ClassModel("密码/验证码输入框", InputFrameActivity.class));
         info.add(new ClassModel("风格TextView", DiyTextActivity.class));
 
+        info.add(new ClassModel("滑块验证码", DragImageCodeActivity.class));
 
     }
 
