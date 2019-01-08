@@ -49,6 +49,13 @@ public class DiyStyleTextView extends AppCompatTextView {
         return this;
     }
 
+    public void reset() {
+        colorRegexList.clear();
+        colorList.clear();
+        imageRegexList.clear();
+        bitmapList.clear();
+    }
+
     //添加自定义颜色规则
     public DiyStyleTextView addColorRegex(String colorRegex, int color) {
         setMovementMethod(LinkMovementMethod.getInstance());
@@ -155,7 +162,7 @@ public class DiyStyleTextView extends AppCompatTextView {
                     int index = indexArr.get(i);
                     String clickText = strArr.get(i);
                     styledText.setSpan(
-                            new ImageSpan(getContext(),bitmap),
+                            new ImageSpan(getContext(), bitmap),
                             index,
                             index + clickText.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
