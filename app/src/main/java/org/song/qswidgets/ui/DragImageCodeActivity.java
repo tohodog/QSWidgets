@@ -37,7 +37,7 @@ public class DragImageCodeActivity extends BaseActivity {
         dragView.setUp(BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover),
                 BitmapFactory.decodeResource(getResources(), R.drawable.drag_block),
                 BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover_c),
-                0.377f);
+                49);
     }
 
     @Override

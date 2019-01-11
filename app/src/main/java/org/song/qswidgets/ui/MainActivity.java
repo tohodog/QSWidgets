@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    class ClassModel {
+    static class ClassModel {
 
         ClassModel(String name, Class _class) {
             this.name = name;

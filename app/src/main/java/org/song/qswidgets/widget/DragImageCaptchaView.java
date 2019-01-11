@@ -79,22 +79,22 @@ public final class DragImageCaptchaView extends FrameLayout implements SeekBar.O
      * @param cover         拼图
      * @param block         滑块
      * @param completeCover 完成的拼图
-     * @param block_y_rate  滑块Y坐标比例
+     * @param y             滑块Y坐标比例
      */
-    public void setUp(Bitmap cover, Bitmap block, Bitmap completeCover, float block_y_rate) {
+    public void setUp(Bitmap cover, Bitmap block, Bitmap completeCover, int y) {
         this.cover = cover;
         this.block = block;
         this.completeCover = completeCover;
         ivCover.setImageBitmap(completeCover);
         ivBlock.setImageBitmap(block);
-        setLocation(block_y_rate);
+        setLocation(y);
         reset();
     }
 
     /**
      * 设置比例大小
      */
-    private void setLocation(final float block_y_rate) {
+    private void setLocation(final int y) {
         post(new Runnable() {
             @Override
             public void run() {
@@ -110,7 +110,7 @@ public final class DragImageCaptchaView extends FrameLayout implements SeekBar.O
                 MarginLayoutParams l2 = (MarginLayoutParams) ivBlock.getLayoutParams();
                 l2.height = (int) (rate * block.getWidth());
                 l2.width = (int) (rate * block.getHeight());
-                l2.topMargin = (int) (h * block_y_rate);
+                l2.topMargin = (int) (rate * y);
                 ivBlock.setLayoutParams(l2);
             }
         });
