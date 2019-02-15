@@ -12,11 +12,9 @@
 ![](https://github.com/tohodog/QSWidgets/blob/master/source/audiorecord.gif)
 
 ### 3.滚动时间控件
-<br/>
 ![](https://github.com/tohodog/QSWidgets/blob/master/source/rolltime.gif)
 
 ### 4.嵌套滚动竖直翻页 
-<br/>
 ![](https://github.com/tohodog/QSWidgets/blob/master/source/verticalpage.gif)
 
 ### 5.验证码输入框控件
