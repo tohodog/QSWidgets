@@ -1,6 +1,10 @@
 # QSWidgets
 #### 持续更新各种安卓小控件
----
+![qrcode][qrpng]
+<br/>
+[![apkurl][apkurlsvg]][apkurl]
+
+<br/><br/>
 ### 1.滑块验证码
 炫酷的验证方式,替代文本验证码
 <br/>
@@ -26,4 +30,9 @@
 可以将显示文本替换图片/颜色,点击监听
 <br/>
 ![](https://github.com/tohodog/QSWidgets/blob/master/source/diytext.gif)
+
+
+[qrpng]: https://raw.githubusercontent.com/tohodog/QSWidgets/master/source/qrcode.png
+[apkurl]: https://raw.githubusercontent.com/tohodog/QSWidgets/master/source/demo.apk
+[apkurlsvg]: https://img.shields.io/badge/download-demo.apk-brightgreen.svg?style=flat
 
