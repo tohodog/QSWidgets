@@ -34,10 +34,12 @@ public class DragImageCodeActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        dragView.setUp(BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover),
-                BitmapFactory.decodeResource(getResources(), R.drawable.drag_block),
-                BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover_c),
-                49);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        dragView.setUp(BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover, options),
+                BitmapFactory.decodeResource(getResources(), R.drawable.drag_block, options),
+                BitmapFactory.decodeResource(getResources(), R.drawable.drag_cover_c, options),
+                44);
     }
 
     @Override
