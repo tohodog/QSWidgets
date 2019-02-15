@@ -3,6 +3,8 @@ package org.song.qswidgets.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import org.song.qswidgets.R;
@@ -36,5 +38,13 @@ public class InputFrameActivity extends Activity {
             }
         });
         inputFrameView.showInputMethod();
+
+        CheckBox checkBox = findViewById(R.id.checkbox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                inputFrameView.setPwdMode(isChecked);
+            }
+        });
     }
 }

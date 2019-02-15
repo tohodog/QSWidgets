@@ -40,11 +40,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
+        info.add(new ClassModel("滑块验证码", DragImageCodeActivity.class));
         info.add(new ClassModel("语音录制", AudioActivity.class));
         info.add(new ClassModel("滚动时间", RollTimeActivity.class));
         info.add(new ClassModel("密码/验证码输入框", InputFrameActivity.class));
         info.add(new ClassModel("风格TextView", DiyTextActivity.class));
-        info.add(new ClassModel("滑块验证码", DragImageCodeActivity.class));
         info.add(new ClassModel("内嵌LIST竖直翻页", VerticalScrollActivity.class));
 
     }

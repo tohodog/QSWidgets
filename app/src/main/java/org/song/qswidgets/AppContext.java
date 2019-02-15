@@ -2,6 +2,9 @@ package org.song.qswidgets;
 
 import android.app.Application;
 
+import org.song.http.QSHttp;
+import org.song.http.framework.HttpManage;
+
 
 /**
  * appcontext
@@ -26,5 +29,6 @@ public class AppContext extends Application {
     }
 
     private void init() {
+        HttpManage.init(this);
     }
 }

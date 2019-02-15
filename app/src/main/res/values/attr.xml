@@ -43,6 +43,7 @@
         <attr name="frameGap" format="reference|dimension" />
         <attr name="codeLength" format="integer|reference" />
         <attr name="frameDrawable" format="reference" />
+        <attr name="pwdMode" format="boolean" />
 
         <attr name="inputType">
             <enum name="text" value="1" />

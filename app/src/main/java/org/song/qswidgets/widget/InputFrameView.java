@@ -58,18 +58,21 @@ public class InputFrameView extends FrameLayout {
     private EditText mEditText;
     private final float density;
 
-    private int mCodeLength = 0;
+    private int codeLength = 0;
     private Paint mCodeTextPaint;
     private Rect mTextRect;
-    private String mCodeText = "";
-    private int mFrameSize = -1;
-    private int mFrameGap = -1;
-    private int mCodeTextColor = -1;
-    private int mCodeTextSize = -1;
-    private int mInputType = -1;
+    private String codeText = "";
+    private int frameSize = -1;
+    private int frameGap = -1;
+    private int codeTextColor = -1;
+    private int codeTextSize = -1;
+    private int inputType = -1;
+
+
+    private boolean pwdMode = false;
 
     private @DrawableRes
-    int mFrameDrawable = -1;
+    int frameDrawableID = -1;
     private SparseArrayCompat<Drawable> mInputDrawable = new SparseArrayCompat<>();
     private InputMethodManager mInputMethodManager;
     private OnInputListener mOnInputListener;
@@ -92,46 +95,49 @@ public class InputFrameView extends FrameLayout {
             int attr = typedArray.getIndex(i);
             switch (attr) {
                 case R.styleable.InputFrameView_codeTextColor:
-                    mCodeTextColor = typedArray.getColor(attr, -1);
+                    codeTextColor = typedArray.getColor(attr, -1);
                     break;
                 case R.styleable.InputFrameView_codeTextSize:
-                    mCodeTextSize = typedArray.getDimensionPixelSize(attr, -1);
+                    codeTextSize = typedArray.getDimensionPixelSize(attr, -1);
                     break;
                 case R.styleable.InputFrameView_frameWidth:
-                    mFrameSize = typedArray.getDimensionPixelSize(attr, -1);
+                    frameSize = typedArray.getDimensionPixelSize(attr, -1);
                     break;
                 case R.styleable.InputFrameView_frameGap:
-                    mFrameGap = typedArray.getDimensionPixelOffset(attr, -1);
+                    frameGap = typedArray.getDimensionPixelOffset(attr, -1);
                     break;
                 case R.styleable.InputFrameView_codeLength:
-                    mCodeLength = typedArray.getInt(attr, -1);
+                    codeLength = typedArray.getInt(attr, -1);
                     break;
                 case R.styleable.InputFrameView_frameDrawable:
-                    mFrameDrawable = typedArray.getResourceId(attr, -1);
+                    frameDrawableID = typedArray.getResourceId(attr, -1);
                     break;
                 case R.styleable.InputFrameView_inputType:
-                    mInputType = typedArray.getInt(attr, -1);
+                    inputType = typedArray.getInt(attr, -1);
+                    break;
+                case R.styleable.InputFrameView_pwdMode:
+                    pwdMode = typedArray.getBoolean(attr, false);
                     break;
             }
         }
         typedArray.recycle();
-        if (mCodeTextColor == -1) {
-            mCodeTextColor = DEFAULT_TEXT_COLOR;
+        if (codeTextColor == -1) {
+            codeTextColor = DEFAULT_TEXT_COLOR;
         }
-        if (mCodeTextSize == -1) {
-            mCodeTextSize = (int) (density * DEFAULT_TEXT_SIZE);
+        if (codeTextSize == -1) {
+            codeTextSize = (int) (density * DEFAULT_TEXT_SIZE);
         }
-        if (mFrameSize == -1) {
-            mFrameSize = (int) (density * DEFAULT_FRAME_SIZE);
+        if (frameSize == -1) {
+            frameSize = (int) (density * DEFAULT_FRAME_SIZE);
         }
-        if (mFrameGap == -1) {
-            mFrameGap = (int) (density * DEFAULT_FRAME_PADDING);
+        if (frameGap == -1) {
+            frameGap = (int) (density * DEFAULT_FRAME_PADDING);
         }
-        if (mInputType == -1) {
-            mInputType = DEFAULT_INPUT_TYPE;
+        if (inputType == -1) {
+            inputType = DEFAULT_INPUT_TYPE;
         }
-        if (mCodeLength <= 0) {
-            mCodeLength = DEFAULT_CODE_LENGTH;
+        if (codeLength <= 0) {
+            codeLength = DEFAULT_CODE_LENGTH;
         }
         mTextRect = new Rect();
         mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -142,12 +148,15 @@ public class InputFrameView extends FrameLayout {
     }
 
     private void initEditText() {
+        if (mEditText != null) {
+            removeView(mEditText);
+        }
         mEditText = new EditText(getContext());
         mEditText.addTextChangedListener(mTextWatcher);
         mEditText.setCursorVisible(false);
         ViewCompat.setBackground(mEditText, new ColorDrawable(Color.TRANSPARENT));
         mEditText.setTextColor(Color.TRANSPARENT);
-        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mCodeLength)});
+        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(codeLength)});
         mEditText.setFocusable(true);
         mEditText.requestFocus();
         mEditText.setTextSize(1);//字体设置小了 光标才不会被点到中间去
@@ -157,8 +166,8 @@ public class InputFrameView extends FrameLayout {
         }
         mEditText.setSingleLine();
 
-        if (mInputType > 0) {
-            mEditText.setInputType(mInputType);
+        if (inputType > 0) {
+            mEditText.setInputType(inputType);
         } else {
             mEditText.setKeyListener(new DigitsKeyListener() {
                 @Override
@@ -186,14 +195,14 @@ public class InputFrameView extends FrameLayout {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             int mCurIndex;
             if (!TextUtils.isEmpty(s)) {
-                mCodeText = s.toString();
-                mCurIndex = mCodeText.length();
+                codeText = s.toString();
+                mCurIndex = codeText.length();
             } else {
                 mCurIndex = 0;
-                mCodeText = "";
+                codeText = "";
             }
 
-            for (int i = 0; i < mCodeLength; i++) {
+            for (int i = 0; i < codeLength; i++) {
                 if (i < mCurIndex)
                     setDrawableState(i, STATE_CHECKED);
                 else if (i == mCurIndex)
@@ -204,7 +213,7 @@ public class InputFrameView extends FrameLayout {
             invalidate();
 
             if (mOnInputListener != null) {
-                if (mCodeText.length() == mCodeLength) {
+                if (codeText.length() == codeLength) {
                     mOnInputListener.onInputFinish();
                 } else {
                     mOnInputListener.onInputIng();
@@ -259,23 +268,23 @@ public class InputFrameView extends FrameLayout {
 
     private void initTextPaint() {
         mCodeTextPaint = new TextPaint();
-        mCodeTextPaint.setColor(mCodeTextColor);
+        mCodeTextPaint.setColor(codeTextColor);
         mCodeTextPaint.setAntiAlias(true);
-        mCodeTextPaint.setTextSize(mCodeTextSize);
+        mCodeTextPaint.setTextSize(codeTextSize);
         mCodeTextPaint.setFakeBoldText(true);
         mCodeTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
 
     private void initStateListDrawable() {
-        for (int i = 0; i < mCodeLength; i++) {
+        for (int i = 0; i < codeLength; i++) {
             mInputDrawable.put(i, getFrameDrawable());
         }
         setDrawableState(0, STATE_SELECTED);
     }
 
     private Drawable getFrameDrawable() {
-        if (mFrameDrawable == -1) {
+        if (frameDrawableID == -1) {
             //默认框框效果
             GradientDrawable mNormalBackground = new GradientDrawable();
             mNormalBackground.setCornerRadius(density * 6);
@@ -296,7 +305,7 @@ public class InputFrameView extends FrameLayout {
             drawable.addState(STATE_NORMAL, mNormalBackground);
             return drawable;
         } else {
-            return ContextCompat.getDrawable(getContext(), mFrameDrawable);
+            return ContextCompat.getDrawable(getContext(), frameDrawableID);
         }
     }
 
@@ -330,10 +339,10 @@ public class InputFrameView extends FrameLayout {
         int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
         if (heightSpecMode == MeasureSpec.AT_MOST) {
-            height = mFrameSize;
+            height = frameSize;
         }
         if (widthSpecMode != MeasureSpec.EXACTLY) {
-            width = (mCodeLength * mFrameSize) + (mFrameGap * (mCodeLength - 1));
+            width = (codeLength * frameSize) + (frameGap * (codeLength - 1));
         }
 
         int childWidthSpec = getChildMeasureSpec(widthMeasureSpec, 0, width);
@@ -343,7 +352,7 @@ public class InputFrameView extends FrameLayout {
     }
 
     public String getInputCode() {
-        return mCodeText;
+        return codeText;
     }
 
 
@@ -351,7 +360,7 @@ public class InputFrameView extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int left = 0;
-        int right = mFrameSize;
+        int right = frameSize;
 
         int size = mInputDrawable.size();
         for (int i = 0; i < size; i++) {
@@ -361,26 +370,104 @@ public class InputFrameView extends FrameLayout {
             drawable.draw(canvas);
             //绘制文本
             drawCodeText(canvas, drawable.getBounds(), indexOfCode(i));
-            left = right + mFrameGap;
-            right = left + mFrameSize;
+            left = right + frameGap;
+            right = left + frameSize;
         }
     }
 
     private String indexOfCode(int index) {
-        if (TextUtils.isEmpty(mCodeText)) {
+        if (TextUtils.isEmpty(codeText)) {
             return "";
         }
-        if (index < 0 || index > mCodeText.length() - 1) {
+        if (index < 0 || index > codeText.length() - 1) {
             return "";
         }
-        return String.valueOf(mCodeText.charAt(index));
+        return pwdMode ? "*" : String.valueOf(codeText.charAt(index));
     }
 
     private void drawCodeText(Canvas canvas, Rect bound, String text) {
         if (!TextUtils.isEmpty(text)) {
             mCodeTextPaint.getTextBounds(text, 0, text.length(), mTextRect);
-            canvas.drawText(text, bound.centerX(), bound.height() / 2 + mTextRect.height() / 2, mCodeTextPaint);
+            canvas.drawText(text, bound.centerX(), bound.height() / 2 + mTextRect.height() / (pwdMode ? 1 : 2), mCodeTextPaint);
         }
+    }
+
+
+    public int getCodeLength() {
+        return codeLength;
+    }
+
+    public void setCodeLength(int codeLength) {
+        this.codeLength = codeLength;
+        initEditText();
+        invalidate();
+    }
+
+    public int getFrameSize() {
+        return frameSize;
+    }
+
+    public void setFrameSize(int frameSize) {
+        this.frameSize = frameSize;
+        initStateListDrawable();
+        invalidate();
+    }
+
+    public int getFrameGap() {
+        return frameGap;
+    }
+
+    public void setFrameGap(int frameGap) {
+        this.frameGap = frameGap;
+        initStateListDrawable();
+        invalidate();
+    }
+
+    public int getCodeTextColor() {
+        return codeTextColor;
+    }
+
+    public void setCodeTextColor(int codeTextColor) {
+        this.codeTextColor = codeTextColor;
+        initTextPaint();
+        invalidate();
+    }
+
+    public int getCodeTextSize() {
+        return codeTextSize;
+    }
+
+    public void setCodeTextSize(int codeTextSize) {
+        this.codeTextSize = codeTextSize;
+        initTextPaint();
+        invalidate();
+    }
+
+    public int getInputType() {
+        return inputType;
+    }
+
+    public void setInputType(int inputType) {
+        this.inputType = inputType;
+    }
+
+    public boolean isPwdMode() {
+        return pwdMode;
+    }
+
+    public void setPwdMode(boolean pwdMode) {
+        this.pwdMode = pwdMode;
+        invalidate();
+    }
+
+    public int getFrameDrawableID() {
+        return frameDrawableID;
+    }
+
+    public void setFrameDrawableID(int frameDrawableID) {
+        this.frameDrawableID = frameDrawableID;
+        initStateListDrawable();
+        invalidate();
     }
 
     public interface OnInputListener {

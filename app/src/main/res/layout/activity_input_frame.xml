@@ -12,14 +12,22 @@
         android:layout_marginTop="100dp"
 
 
-        app:frameDrawable="@drawable/input_frame_view"
+        app:codeLength="4"
 
         app:codeTextColor="#ff6666"
         app:codeTextSize="30dp"
+        app:frameDrawable="@drawable/input_frame_view"
         app:frameGap="14dp"
         app:frameWidth="50dp"
-        app:codeLength="4"
         app:inputType="number"
 
         />
+
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="密码模式" />
 </FrameLayout>

@@ -14,7 +14,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1000dp"
             android:layout_gravity="center_horizontal"
             android:ems="1"
             android:text="往下翻++++++++++++++++++++++++++++++++++++++++"
@@ -30,7 +30,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1000dp"
             android:layout_gravity="center_horizontal"
             android:ems="1"
             android:text="++++++++++++++++++++++++++++++++++++++++"
@@ -44,7 +44,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1000dp"
             android:layout_gravity="center_horizontal"
             android:ems="1"
             android:text="++++++++++++++++++++++++++++++++++++++++往回翻"
