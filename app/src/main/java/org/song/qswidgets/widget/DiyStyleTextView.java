@@ -49,11 +49,12 @@ public class DiyStyleTextView extends AppCompatTextView {
         return this;
     }
 
-    public void reset() {
+    public DiyStyleTextView reset() {
         colorRegexList.clear();
         colorList.clear();
         imageRegexList.clear();
         bitmapList.clear();
+        return this;
     }
 
     //添加自定义颜色规则
@@ -86,7 +87,7 @@ public class DiyStyleTextView extends AppCompatTextView {
 
 
     public void setDiyTextColor(CharSequence text, String regularExpression, int color, DiyTextClick mDiyTextClick) {
-        addColorRegex(regularExpression, color).setDiyTextClickListenner(mDiyTextClick).setTextStyle(text, true);
+        reset().addColorRegex(regularExpression, color).setDiyTextClickListenner(mDiyTextClick).setTextStyle(text, true);
     }
 
     public void setDiyTextColor(CharSequence text, String regularExpression, int color) {
@@ -94,11 +95,11 @@ public class DiyStyleTextView extends AppCompatTextView {
     }
 
     public void setDiyTextImage(CharSequence text, String regularExpression, Bitmap bitmap, DiyTextClick mDiyTextClick) {
-        addImageRegex(regularExpression, bitmap).setDiyTextClickListenner(mDiyTextClick).setTextStyle(text, true);
+        reset().addImageRegex(regularExpression, bitmap).setDiyTextClickListenner(mDiyTextClick).setTextStyle(text, true);
     }
 
     public void setDiyTextImage(CharSequence text, String regularExpression, Bitmap bitmap) {
-        setDiyTextImage(text, regularExpression, bitmap, null);
+        reset().setDiyTextImage(text, regularExpression, bitmap, null);
     }
 
 
@@ -117,6 +118,9 @@ public class DiyStyleTextView extends AppCompatTextView {
             for (int j = 0; j < colorRegexList.size(); j++) {
 
                 String colorRegex = colorRegexList.get(j);
+                if (colorRegex == null)
+                    continue;
+
                 int color = colorList.get(j);
 
                 indexArr.clear();
@@ -148,6 +152,8 @@ public class DiyStyleTextView extends AppCompatTextView {
 
                 String imageRegex = imageRegexList.get(j);
                 Bitmap bitmap = bitmapList.get(j);
+                if (imageRegex == null)
+                    continue;
 
                 indexArr.clear();
                 strArr.clear();
@@ -162,7 +168,7 @@ public class DiyStyleTextView extends AppCompatTextView {
                     int index = indexArr.get(i);
                     String clickText = strArr.get(i);
                     styledText.setSpan(
-                            new ImageSpan(getContext(), bitmap),
+                            new ImageSpan(bitmap),
                             index,
                             index + clickText.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
